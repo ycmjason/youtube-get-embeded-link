@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Get youtube embeded link</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    body{
+      font-family: "Open Sans",arial,x-locale-body,sans-serif;
+      font-size: 2.5rem;
+    }
+    *{
+      box-sizing: border-box;
+    }
+    .container{
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    input[type=text]{
+      width: 100%;
+      height: 2.5em;
+      font-size: 1em;
+      border: 1px solid #dfdfdf;
+      padding-left: 0.5em;
+    }
+    input[type=submit], .button, button{
+      display: block;
+      width: 100%;
+      border: 1px solid #D0D0D0;
+      background: #DDD;
+      color: #555;
+      text-transform: uppercase;
+      border-radius: 0;
+      line-height: 2.5em;
+      font-size: 1em;
+      margin: 1em auto;
+    }
+    input[type=submit]:hover, .button:hover, button:hover{
+      cursor: pointer;
+      background: #D5D5D5; 
+    }
+    </style>
+    <base target="_top">
+  </head>
+  <body>
+    <div class="container">
+      <h2>Get the embeded link:</h2>
+      <input id="link" placeholder="https://www.youtube.com/watch?v=K7zdYKn2RJo" type="text" name="link">
+      <button id="submit" onclick="submit()">Submit</button>
+    
+      <div id="result"></div>
+    </div>
+    <script>
+    function getLink(){
+      return document.getElementById('link').value;
+    }
+    function getId(link){
+      try{
+        return link.match(/watch\?v=([^&]+)*/)[1];
+      }catch(e){
+        return false;
+      }
+    }
+    function writeResult(v){
+      document.getElementById('result').innerHTML = v;
+    }
+    function linkify(l){
+      return '<a href="' + l + '">' + l + '</a>'; 
+    }
+    function submit(){
+      const id = getId(getLink());
+      if(!id) return;
+      
+      let res = '';
+      res += 'Embeded Link: <br>' + linkify('https://www.youtube.com/embed/' + id);
+      writeResult(res);
+    }
+    </script>
+  </body>
+</html>
+
+
